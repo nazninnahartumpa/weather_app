@@ -132,5 +132,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
-# Api base url from telemed api
+# Api base url
 API_BASE_URL="http://127.0.0.1:8000"

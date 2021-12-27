@@ -18,10 +18,13 @@ def get_weather_api(**args):
     try:
         get_weather_api_url = BASE_URL + "/api/weather/"
 
-        response = requests.get(
+        response = requests.post(
             get_weather_api_url,
             headers={
                 "Content-Type": "application/json",
+            },
+            json={
+                "city_name": args['city_name'],
             },
             verify=False
         )
