@@ -26,8 +26,15 @@ def weather_api(request):
         city_weather = {
             'city' : r['name'],
             'temperature' : r['main']['temp'],
+            'humidity' : r['main']['humidity'],
+            'feels_like' : r['main']['feels_like'],
             'description' : r['weather'][0]['description'],
             'icon' : r['weather'][0]['icon'],
+            'lat' : r['coord']['lat'],
+            'lon' : r['coord']['lon'],
+            'sunrise' : r['sys']['sunrise'],
+            'sunset' : r['sys']['sunset'],
+
         }
        
         print('city_weather', city_weather)
@@ -37,5 +44,34 @@ def weather_api(request):
         print("Error for getting weather info for given city", error)
         city_weather = {}
         return Response(city_weather, status=status.HTTP_404_NOT_FOUND)
+
+
+
+@api_view(["POST"])
+def daily_weather_api(request):
+
+    lat = request.data['lat']
+    lon = request.data['lon']
+
+    try:
+        url = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon +'&exclude=hourly&appid=f958ea4aef8d5dcefb2b61cbfe63aa11'
+
+
+        r = requests.get(url).json()
+
+        # daily_weather = {
+        #     'city' : r['name'],
+        #     'temperature' : r['main']['temp'],
+        #     'description' : r['weather'][0]['description'],
+        #     'icon' : r['weather'][0]['icon'],
+        # }
+       
+        # print('daily_weather', r)
+        return Response(r, status=status.HTTP_200_OK)
+
+    except Exception as error:
+        print("Error for getting weather info for given city", error)
+        city_weather = {}
+        return Response(r, status=status.HTTP_404_NOT_FOUND)
 
 
