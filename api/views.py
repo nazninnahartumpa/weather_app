@@ -59,12 +59,12 @@ def daily_weather_api(request):
 
         r = requests.get(url).json()
 
-        # daily_weather = {
-        #     'city' : r['name'],
-        #     'temperature' : r['main']['temp'],
-        #     'description' : r['weather'][0]['description'],
-        #     'icon' : r['weather'][0]['icon'],
-        # }
+        daily_weather = {
+            'weather' : r['weather']['main'],
+            'description' : r['main']['description'],
+            'description' : r['weather'][0]['description'],
+            'icon' : r['weather'][0]['icon'],
+        }
        
         # print('daily_weather', r)
         return Response(r, status=status.HTTP_200_OK)
