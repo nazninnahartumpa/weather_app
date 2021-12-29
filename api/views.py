@@ -59,19 +59,21 @@ def daily_weather_api(request):
 
         r = requests.get(url).json()
 
-        daily_weather = {
-            'weather' : r['weather']['main'],
-            'description' : r['main']['description'],
-            'description' : r['weather'][0]['description'],
-            'icon' : r['weather'][0]['icon'],
-        }
+        # daily_weather = {
+        #     'date' : r['daily'][0]['dt'],
+        #     'temparature' : r['current']['temp'],
+        #     'feels_like' : r['current']['feels_like'],
+        #     'description' : r['daily']['weather']['description'],
+        #     'icon' : r['weather'][0]['icon'],
+            
+        # }
        
-        # print('daily_weather', r)
+        # print('daily_weather', daily_weather)
         return Response(r, status=status.HTTP_200_OK)
 
     except Exception as error:
         print("Error for getting weather info for given city", error)
-        city_weather = {}
+        r = {}
         return Response(r, status=status.HTTP_404_NOT_FOUND)
 
 

@@ -25,7 +25,7 @@ def home(request):
                                     lat = str(api_data.json()['lat']),
                                     lon = str(api_data.json()['lon'])
                                 )
-            # print('day_wise_weather_data', day_wise_weather_data)
+            print('day_wise_weather_data', day_wise_weather_data)
         else:
             day_wise_weather_data = ''
 
@@ -45,7 +45,7 @@ def home(request):
                 'msg': 'Please enter a valid city !'
             }
             
-            # print('context', context)
+            print('context', context)
 
             return render(request, 'index.html', context)
 
