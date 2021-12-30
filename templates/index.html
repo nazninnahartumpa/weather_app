@@ -1,5 +1,6 @@
 {% extends 'layout/base.html' %}
 {% load custom_tags %}
+{% load i18n %}
 
 {% block  content %}
 
@@ -10,7 +11,7 @@
               Weather Info
             </div>
             <div class="card-body">
-              <h5 class="card-title">Search your city here. . .</h5>
+              <h5 class="card-title">{% translate "Search your city here. . ." %}</h5>
               {% comment %} <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> {% endcomment %}
 
               <div class="row">

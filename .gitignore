@@ -13,7 +13,6 @@ Pipfile
 Pipfile.lock
 env
 venv
-myvenv
 
 # django migrations
 **/migrations/**

@@ -1,7 +1,0 @@
-django
-djangorestframework
-psycopg2
-requests
-pytz
-tzlocal
-python-gettext==4.0

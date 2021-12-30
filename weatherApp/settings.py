@@ -93,6 +93,11 @@ DATABASES = {
         'HOST': 'weather_db',  # <-- IMPORTANT: same name as docker-compose service!
         'PORT': '5432',
     }
+
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
 }
 
 
