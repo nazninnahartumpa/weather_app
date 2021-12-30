@@ -1,78 +1,134 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'layout/base.html' %}
+{% load custom_tags %}
+{% load i18n %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.css" />
-</head>
+{% block  content %}
 
-<body>
-    <section class="hero is-primary">
-        <div class="hero-body">
-            <div class="container">
-                <h1 class="title">
-                    What's the weather like?
-                </h1>
+
+    <div class="pt-5">
+        <div class="card">
+            <div class="card-header">
+              {% translate "Weather Info" %}
             </div>
-        </div>
-    </section>
-    <section class="section">
-        <div class="container">
-            <div class="columns">
-                <div class="column is-offset-4 is-4">
-                    <form method="POST">
+            <div class="card-body">
+              <h5 class="card-title">{% translate "Search your city here. . ." %}</h5>
+              {% comment %} <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> {% endcomment %}
+
+              <div class="row mt-3">
+                  <div class="col-md-8 offset-md-2">
+                    <form class="d-flex" method="POST">
                         {% csrf_token %}
-                        <div class="field has-addons">
-                            <div class="control is-expanded">
-                                <!-- {{ form.name }} -->
-                                <input type="text" name="" >
-                            </div>
-                            <div class="control">
-                                <button type="submit" class="button is-info">
-                                    Add City
-                                </button>
-                            </div>
-                        </div>
+                        <input class="form-control me-2" type="text" name="city_name" placeholder='{% translate "City Name" %}' aria-label="Search" required>
+                        <button class="btn btn-success" type="submit">{% translate "Add" %}</button>
                     </form>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="section">
-        <div class="container">
-            <div class="columns">
-                <div class="column is-offset-4 is-4">
-                    {{weather_data}}
-                    {% for city_weather in weather_data %}
-                    <div class="box">
-                        <article class="media">
-                            <div class="media-left">
-                                <figure class="image is-50x50">
-                                    <img src="http://openweathermap.org/img/w/{{ city_weather.icon }}.png" alt="Image">
-                                </figure>
-                            </div>
-                            <div class="media-content">
-                                <div class="content">
-                                    <p>
-                                        <span class="title">{{ city_weather['city'] }}</span>
-                                        <br>
-                                        <span class="subtitle">{{ city_weather.temperature }}° F</span>
-                                        <br> {{ city_weather.description }}
-                                    </p>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-    </section>
-    <footer class="footer">
-    </footer>
-</body>
+                  </div>
+              </div>
 
-</html>
+              {% comment %} If valid city is searched then show all the info  {% endcomment %}
+              {% if weather_data != '' %}
+                <div class="row mt-3">
+                  <div class="col-md-4 col-sm-6 offset-md-2">
+                    <div class="card">
+                      <div class="card-body">
+                        <h4>{{ weather_data.city }}</h4>
+                        <div class="card-title">
+                          <img class="float-start" src="http://openweathermap.org/img/w/{{ weather_data.icon }}.png" alt="Image">
+                          <span class="fw-bold fs-3">{{ weather_data.temperature }}° C</span>
+                        </div>
+                        <div>
+                          <span class="card-text">Feels like {{ weather_data.feels_like }} ° C</span>
+                          <span class="card-text text-capitalize">{{ weather_data.description }}.</span> </br>
+                          <span class="card-text">Humidity {{ weather_data.humidity }} %.</span></br>
+                          <span class="card-text">Sunrise {{ weather_data.sunrise|convert_only_time }}, Sunset {{ weather_data.sunset|convert_only_time }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {% comment %} If getting unvalid city name then a error message will show {% endcomment %}
+                {% else %}
+                  {% if msg %}
+                    <div class="row">
+                      <div class="col-md-8 offset-md-2 alert alert-danger mt-3" role="alert">
+                        {{ msg }}
+                      </div>
+                    </div>
+                  {% endif %}
+                {% endif %}
+
+                <div class="row">
+                  <div class="col-md-12">
+                  
+                  {% comment %} Here the next 8 days data will show {% endcomment %}
+                  {% if day_wise_weather_data %}
+                    <h4 class="mt-5">{% translate "8 Day Weather Forcast" %}</h4>
+
+                    {% for daily_data in day_wise_weather_data.daily  %}
+                      <div class="accordion" id="accordionExample">
+                        <div class="accordion-item">
+                          <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#id-{{ daily_data.dt }}" aria-expanded="true" aria-controls="collapseOne">
+                              {{ daily_data.dt|convert_only_dateYear }}
+                            </button>
+                          </h2>
+                          <div id="id-{{ daily_data.dt }}" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                              {% for daily_weather in daily_data.weather %}
+                                <span>The high will be {{ daily_data.temp.max }} ° C, the low will be {{ daily_data.temp.min }} ° C</span><br>
+                                <span class="fw-bold text-capitalize">{{ daily_weather.description }}</span>
+                                <p>
+                                    <img src="http://openweathermap.org/img/w/{{ daily_weather.icon }}.png" alt="Image">
+                                    <span class="text-bold">Temperature: {{ day_wise_weather_data.current.temp }} ° C, 
+                                        Humidity: {{ day_wise_weather_data.current.humidity }} %</span>
+                                </p>
+
+                                <table class="table">
+                                    <thead>
+                                      <tr>
+                                        <th></th>
+                                        <th>{% translate "Morning" %}</th>
+                                        <th>{% translate "Afternoon" %}</th>
+                                        <th>{% translate "Evening" %}</th>
+                                        <th>{% translate "Night" %}</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <th>{% translate "Temperature" %}</th>
+                                        <td>{{ daily_data.temp.morn }} ° C</td>
+                                        <td>{{ daily_data.temp.day }} ° C</td>
+                                        <td>{{ daily_data.temp.eve }} ° C</td>
+                                        <td>{{ daily_data.temp.night }} ° C</td>
+                                      </tr>
+                                      <tr>
+                                        <th>{% translate "Feels like" %}</th>
+                                        <td>{{ daily_data.feels_like.morn }} ° C</td>
+                                        <td>{{ daily_data.feels_like.day }} ° C</td>
+                                        <td>{{ daily_data.feels_like.eve }} ° C</td>
+                                        <td>{{ daily_data.feels_like.night }} ° C</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                
+                              {% endfor %}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    {% endfor %}
+                  {% endif %}
+
+                  </div>
+
+                </div>
+            </div>
+          </div>
+        
+    </div>
+
+
+
+
+
+{% endblock  %}
