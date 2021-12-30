@@ -11,7 +11,7 @@ __pycache__/
 db.*
 Pipfile
 Pipfile.lock
-.env
+*.env
 venv
 
 # django migrations
