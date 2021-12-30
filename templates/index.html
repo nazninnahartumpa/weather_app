@@ -39,7 +39,7 @@
                           <span class="card-text">Feels like {{ weather_data.feels_like }} ° C</span>
                           <span class="card-text text-capitalize">{{ weather_data.description }}.</span> </br>
                           <span class="card-text">Humidity {{ weather_data.humidity }} %.</span></br>
-                          <span class="card-text">Sunrise {{ weather_data.sunrise|convert_only_time }}, Sunset {{ weather_data.sunset|convert_only_time }}</span>
+                          {% comment %} <span class="card-text">Sunrise {{ weather_data.sunrise|convert_only_time }}, Sunset {{ weather_data.sunset|convert_only_time }}</span> {% endcomment %}
                         </div>
                       </div>
                     </div>
