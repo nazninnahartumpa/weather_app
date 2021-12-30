@@ -70,11 +70,6 @@
 
                     <h4 class="mt-5">8 Day Weather Forcast</h4>
 
-                    {% comment %} {% for daily_data in day_wise_weather_data.daily %}
-                          {{ daily_data.dt|convert_unix_time }}<br>
-                          {{ daily_data.dt }}<br>
-                        {% endfor %} {% endcomment %}
-
                     {% for daily_data in day_wise_weather_data.daily  %}
                       <div class="accordion" id="accordionExample">
                         <div class="accordion-item">
@@ -85,10 +80,43 @@
                           </h2>
                           <div id="id-{{ daily_data.dt }}" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                             <div class="accordion-body">
-                              {%for daily_weather in daily_data.weather %}
+                              {% for daily_weather in daily_data.weather %}
+                                <span>The high will be {{ daily_data.temp.max }} ° F, the low will be {{ daily_data.temp.min }} ° F</span><br>
+                                <span class="fw-bold">{{ daily_weather.description }}</span>
+                                <p>
+                                    <img src="http://openweathermap.org/img/w/{{ daily_weather.icon }}.png" alt="Image">
+                                    <span class="text-bold">Temperature: {{ day_wise_weather_data.current.temp }} ° F, 
+                                        Humidity: {{ day_wise_weather_data.current.humidity }} %</span>
+                                </p>
 
-                            
-                                <span class="text-bold">{{ daily_weather.description }}</span>
+                                <table class="table">
+                                    <thead>
+                                      <tr>
+                                        <th></th>
+                                        <th>Morning</th>
+                                        <th>Afternoon</th>
+                                        <th>Evening</th>
+                                        <th>Night</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <th>Temperature</th>
+                                        <td>{{ daily_data.temp.morn }} ° F</td>
+                                        <td>{{ daily_data.temp.day }} ° F</td>
+                                        <td>{{ daily_data.temp.eve }} ° F</td>
+                                        <td>{{ daily_data.temp.night }} ° F</td>
+                                      </tr>
+                                      <tr>
+                                        <th>Feels like</th>
+                                        <td>{{ daily_data.feels_like.morn }} ° F</td>
+                                        <td>{{ daily_data.feels_like.day }} ° F</td>
+                                        <td>{{ daily_data.feels_like.eve }} ° F</td>
+                                        <td>{{ daily_data.feels_like.night }} ° F</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                
                               {% endfor %}
                             </div>
                           </div>

@@ -54,7 +54,7 @@ def daily_weather_api(request):
     lon = request.data['lon']
 
     try:
-        url = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon +'&exclude=hourly&appid=f958ea4aef8d5dcefb2b61cbfe63aa11'
+        url = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon +'&units=imperial&exclude=hourly&appid=f958ea4aef8d5dcefb2b61cbfe63aa11'
 
 
         r = requests.get(url).json()
