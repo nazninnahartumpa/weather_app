@@ -1,30 +1,22 @@
 {% load i18n %}
 {% load custom_tags %}
+
 <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Open Weather</a>
+      <a class="navbar-brand" href="{% url 'home' %}">{% translate "Open Weather" %}</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link active" aria-current="page" href="{% url 'home' %}">{% translate "Home" %}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">API</a>
+            <a class="nav-link" href="{% url 'current_weather' %}">{% translate "API" %}</a>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Weather For
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">Minutely</a></li>
-              <li><a class="dropdown-item" href="#">Currently</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Daily</a></li>
-            </ul>
-          </li>
+
+          {% comment %} By clicking the Bangla text user can see the bengoli translation and by clicking English user can see english translation. Bangla is default {% endcomment %}
           <li class="nav-item">
             {% get_current_language as LANGUAGE_CODE %}
             {% get_available_languages as LANGUAGES %}
@@ -45,13 +37,8 @@
                     {% endif %}
 
                 {% endfor %}
-        </li>
-        
+            </li>
         </ul>
-        <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Get your city weather" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
       </div>
     </div>
   </nav>

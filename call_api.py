@@ -4,7 +4,7 @@ from requests.exceptions import HTTPError
 
 from django.conf import settings
 
-
+# base url for the api url from setting file
 BASE_URL = settings.API_BASE_URL
 
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-30 11:26+0000\n"
+"POT-Creation-Date: 2021-12-30 15:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,9 +18,61 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: templates/index.html:11
+msgid "Weather Info"
+msgstr "আবহাওয়া বার্তা"
+
 #: templates/index.html:14
 msgid "Search your city here. . ."
 msgstr "আপনার শহরের নাম লিখুন . . ."
+
+#: templates/index.html:22
+msgid "City Name"
+msgstr "শহর"
+
+#: templates/index.html:23
+msgid "Add"
+msgstr "খুঁজুন"
+
+#: templates/index.html:62
+msgid "8 Day Weather Forcast"
+msgstr "আগামী ৮ দিনের আবহাওয়া"
+
+#: templates/index.html:87
+msgid "Morning"
+msgstr "সকাল"
+
+#: templates/index.html:88
+msgid "Afternoon"
+msgstr "দুপুর"
+
+#: templates/index.html:89
+msgid "Evening"
+msgstr "সন্ধ্যা"
+
+#: templates/index.html:90
+msgid "Night"
+msgstr "রাত"
+
+#: templates/index.html:95
+msgid "Temperature"
+msgstr "তাপমাত্রা"
+
+#: templates/index.html:102
+msgid "Feels like"
+msgstr "অনুভব হচ্ছে"
+
+#: templates/layout/header.html:5
+msgid "Open Weather"
+msgstr "আবহাওয়া"
+
+#: templates/layout/header.html:12
+msgid "Home"
+msgstr "হোম"
+
+#: templates/layout/header.html:15
+msgid "API"
+msgstr "এপিআই"
 
 #: weatherApp/settings.py:155
 msgid "Bengali"
