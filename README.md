@@ -7,7 +7,7 @@ By clicking the text English can see English translation and Bangoli is the defa
 By API from the manue you can go to the api.
 `api/weather/` is the url for current weather and `api/daily_weather/` is the url for next 8 days weather data.
 You can post to `api/weather/` url as `{"city_name":"dhaka"}` this way.
-And can post to the url `api/daily_weather/` `{"lat": "city_lat_data", "lon": "city_lon_data"}` this way.
+And can post to the url `api/daily_weather/` `{"lat": "city_lat_data", "lon": "city_lon_data"}` this way. And I am using `call_api.py` file to call my api in the frontend app.
 # If I have more time
 If I have more time I will implement the Cached api results and type hinting.
 Here I actually focus on backend part because I am interested in backend part more then frontend. I can work as full stack developer but I am more interested in backend part.
